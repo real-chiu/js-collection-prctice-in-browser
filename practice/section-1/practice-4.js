@@ -1,5 +1,7 @@
 'use strict';
 
 function collectSameElements(collectionA, objectB) {
-  return 'Implement the practice require, and begin changing code in this row';
+  const { value } = objectB;
+  let filteredCollectionA = collectionA.filter(e => value.includes(e.key));
+  return filteredCollectionA.map(e => e.key);
 }
