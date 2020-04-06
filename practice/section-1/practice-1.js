@@ -1,5 +1,5 @@
 'use strict';
 
 function collectSameElements(collectionA, collectionB) {
-  return collectionA.filter(e => collectionB.includes(e));
+  return collectionA.filter(element => collectionB.includes(element));
 }

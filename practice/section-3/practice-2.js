@@ -1,15 +1,15 @@
 'use strict';
 
 function createUpdatedCollection(collectionA, objectB) {
-  const { value } = objectB;
-  return collectionA.map(e => {
-    if (value.includes(e.key)) {
-      const minusValue = Math.floor(e.count / 3);
+  const { value: valueOfObjectB } = objectB;
+  return collectionA.map(element => {
+    if (valueOfObjectB.includes(element.key)) {
+      const minusValue = Math.floor(element.count / 3);
       return {
-        key: e.key,
-        count: e.count - minusValue
+        key: element.key,
+        count: element.count - minusValue
       }
     }
-    return e;
+    return element;
   });
 }

@@ -1,35 +1,46 @@
 'use strict';
 
 function createUpdatedCollection(collectionA, objectB) {
-  let object = {};
+  let objectOfCollectionA = {};
 
   //count for appearance of char and save into object
   collectionA.forEach(key => {
-    if (!object[key]) {
+    if (!objectOfCollectionA[key]) {
       // if key already exists
-      object[key] = 1;
+      objectOfCollectionA[key] = 1;
     } else {
-      object[key] += 1
+      objectOfCollectionA[key] += 1
     }
   });
 
-  let objectArray = [];
-  for (let [key, value] of Object.entries(object)) {
-    objectArray.push({
+  let separatedObjectArray = separateKeyAndValueInObjectOfCollectionA(objectOfCollectionA);
+
+  return minusCountofObjectArray(objectB, separatedObjectArray);
+  
+}
+
+function separateKeyAndValueInObjectOfCollectionA(objectOfCollectionA) {
+  let separatedObjectArray = [];
+  for (let [key, value] of Object.entries(objectOfCollectionA)) {
+    separatedObjectArray.push({
       key,
       count: value
     });
   };
+  return separatedObjectArray;
+}
 
-  const { value } = objectB;
-  return objectArray.map(e => {
-    if (value.includes(e.key)) {
-      const minusValue = Math.floor(e.count / 3);
+function minusCountofObjectArray(objectB, separatedObjectArray) {
+  const { value: valueOfObjectB } = objectB;
+  
+  return separatedObjectArray.map(element => {
+    if (valueOfObjectB.includes(element.key)) {
+      const minusValue = Math.floor(element.count / 3);
       return {
-        key: e.key,
-        count: e.count - minusValue
+        key: element.key,
+        count: element.count - minusValue
       }
     }
-    return e;
+    return element;
   });
 }

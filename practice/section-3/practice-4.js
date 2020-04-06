@@ -1,49 +1,56 @@
 'use strict';
 
 function createUpdatedCollection(collectionA, objectB) {
-  let object = {};
-  collectionA.forEach(key => {
+  let objectOfCollectionA = {};
+  collectionA.forEach(keyOfCollectionA => {
     let extraValue = 0;
     let keyToAddExtraValue = '';
     
-    if (key.indexOf('-') > -1) { 
-      // if element includes "-"
-      let keyCharArray = key.split("");
+    if (keyOfCollectionA.indexOf('-') > -1) { 
+      let keyCharArray = keyOfCollectionA.split("");
       keyToAddExtraValue = keyCharArray[0];
       extraValue = keyCharArray[2];
-      if (!object[keyToAddExtraValue]) { 
-        // if key already exists
-        object[keyToAddExtraValue] = extraValue;
+      if (!objectOfCollectionA[keyToAddExtraValue]) { 
+        objectOfCollectionA[keyToAddExtraValue] = extraValue;
       } else {
-        object[keyToAddExtraValue] += extraValue;
+        objectOfCollectionA[keyToAddExtraValue] += extraValue;
       }
     } else {
-      if (!object[key]) { 
-        // if key already exists
-        object[key] = 1;
+      if (!objectOfCollectionA[keyOfCollectionA]) { 
+        objectOfCollectionA[keyOfCollectionA] = 1;
       } else {
-        object[key] += 1
+        objectOfCollectionA[keyOfCollectionA] += 1
       }
     }
   });
+  let separatedObjectArray = separateKeyAndValueInObjectOfCollectionA(objectOfCollectionA);
+  
+  return minusCountofObjectArray(objectB, separatedObjectArray);
 
-  let objectArray = [];
-  for (let [key, value] of Object.entries(object)) {
-    objectArray.push({
+}
+
+function separateKeyAndValueInObjectOfCollectionA(objectOfCollectionA) {
+  let separatedObjectArray = [];
+  for (let [key, value] of Object.entries(objectOfCollectionA)) {
+    separatedObjectArray.push({
       key,
       count: value
     });
   };
+  return separatedObjectArray;
+}
 
-  const { value } = objectB;
-  return objectArray.map(e => {
-    if (value.includes(e.key)) {
-      const minusValue = Math.floor(e.count / 3);
+function minusCountofObjectArray(objectB, separatedObjectArray) {
+  const { value: valueOfObjectB } = objectB;
+  
+  return separatedObjectArray.map(element => {
+    if (valueOfObjectB.includes(element.key)) {
+      const minusValue = Math.floor(element.count / 3);
       return {
-        key: e.key,
-        count: e.count - minusValue
+        key: element.key,
+        count: element.count - minusValue
       }
     }
-    return e;
+    return element;
   });
 }

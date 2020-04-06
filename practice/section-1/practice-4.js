@@ -1,7 +1,7 @@
 'use strict';
 
 function collectSameElements(collectionA, objectB) {
-  const { value } = objectB;
-  let filteredCollectionA = collectionA.filter(e => value.includes(e.key));
-  return filteredCollectionA.map(e => e.key);
+  const { value: valueOfObjectB } = objectB;
+  let filteredCollectionA = collectionA.filter(element => valueOfObjectB.includes(element.key));
+  return filteredCollectionA.map(element => element.key);
 }
